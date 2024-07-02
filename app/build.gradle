@@ -1,0 +1,19 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 33
+    defaultConfig {
+        applicationId "com.csl.cs710awedgeapp"
+        minSdkVersion 21
+        targetSdkVersion 33
+        versionCode 5
+        versionName "5.9.11"
+    }
+    namespace 'com.csl.cs710awedgeapp'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation project(path: ':cs710library4a')
+}
