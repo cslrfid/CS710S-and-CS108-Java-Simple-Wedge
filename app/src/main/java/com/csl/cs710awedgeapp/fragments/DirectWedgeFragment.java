@@ -193,7 +193,7 @@ public class DirectWedgeFragment extends CommonFragment {
                 "3.	Once connected, put the application in background.\n\n" +
                 "4.	Open the target application where you would like data to be printed.\n\n" +
                 "5.	On the target applicatoin , put the cursor to the text field where data will be printed.  Switch your keyboard to <CSL Data Wedge>.\n\n" +
-                "6.	Press and hold the trigger key of the reader to start reading tags. EPC values will be printed to the cursor.\"Final Application\".\n\n" +
+                "6.	Press and hold the trigger key of the reader to start reading tags. EPC values will be printed to the cursor on your target application.\n\n" +
                 "7.	Switch back to the CSL Data Wedge application.  Now you can press the \"Disconnect\" button to disconnect from the reader.\n\n" +
                 "8.	Configuration button: Press the button to modify parameters such as power, prefix, suffix and delimiter.\n\n";
                 MainActivity.csLibrary4A.appendToLog(stringInfo);
