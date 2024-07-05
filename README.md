@@ -13,3 +13,5 @@ This application serves as a keyboard wedge for writing RFID tag data to the cur
 </ol>
 
 **Configurations:** Press the button to modify parameters such as power, prefix, suffix and delimiter.
+
+![csl-data-wedge-android](/images/csl-data-wedge-android.png)
