@@ -125,6 +125,7 @@ public class CustomIME extends InputMethodService { //implements KeyboardView.On
         if ((started && MainActivity.csLibrary4A.getTriggerButtonStatus()) || (started == false && MainActivity.csLibrary4A.getTriggerButtonStatus() == false)) return;
         if (started == false) {
             appendToLog("CustomIME Debug 11");
+            MainActivity.csLibrary4A.setPowerLevel(MainActivity.wedgePower);
             MainActivity.csLibrary4A.startOperation(CsLibrary4A.OperationTypes.TAG_INVENTORY);
             inventoryRfidTask = new InventoryRfidTask();
             inventoryRfidTask.execute();

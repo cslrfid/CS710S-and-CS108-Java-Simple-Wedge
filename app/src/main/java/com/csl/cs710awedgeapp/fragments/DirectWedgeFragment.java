@@ -70,9 +70,9 @@ public class DirectWedgeFragment extends CommonFragment {
             androidx.appcompat.app.ActionBar actionBar;
             actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
             actionBar.setIcon(R.drawable.dl_access);
-            ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#0000FF"));
+            ColorDrawable colorDrawable = new ColorDrawable(getResources().getColor(R.color.colorPrimary));
             actionBar.setBackgroundDrawable(colorDrawable);
-            actionBar.setTitle("CSL Java Simple Wedge v" + BuildConfig.VERSION_NAME);
+            actionBar.setTitle("CSL Data Wedge v" + BuildConfig.VERSION_NAME);
 
         } else if (getActivity().getPackageName().contains("cs710ademoapp")) {
             ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
@@ -188,16 +188,14 @@ public class DirectWedgeFragment extends CommonFragment {
             public void onClick(View v) {
                 CustomPopupWindow customPopupWindow = new CustomPopupWindow(MainActivity.mContext);
                 String stringInfo =
-                "1.	After installation, when first time entering the application, the application may request user to do something, such as turning on location permission, selecting location accuracy, allowing connection and enabling <CSL Java Simple Wedge>. Please follow the requests and give positive answers.\n\n" +
-                "2.	Use the Reader List box with title: \"Tick box to select reader\" and select the reader you want to connect to.  The list shows the reader name and type and Bluetooth MAC address.  Tick the box on the right hand side to select the reader to be connected. Once ticked, the reader will be connected automatically. The Connect button below would change to Disconnect.\n\n" +
-                "3.	Once connected, you can now swap this application to background.  Just press the Android \"square\" button at the bottom of the screen and the application will be swapped to background\n\n" +
-                "4.	Open the final application that you want the wedge to serve.  Call this \"Final Application\" for easy reference.\n\n" +
-                "5.	If the \"Final Application\" allows user to select another input devices, user should see a keyboard icon at the lower right corner of the screen. Select the keyboard <CSL Java Simple Wedge> as the input.\n\n" +
-                "6.	At this point, the Wedge is ready for the \"Final Application\".  Just press and hold the blue gun trigger button of the reader to read the tags in front of the CS710S (or CS108) reader. The tag EPCs will then be shown in the \"Final Application\".\n\n" +
-                "7.	At the end of tag reading, release the trigger button, close the \"Final Application\" and swap back the CSL Simple Wedge application from the background.\n\n" +
-                "8.	Now you can press the Disconnect button to disconnect from the CS710S (or CS108) reader.\n\n" +
-                "9.	Configuration button: Press the button to modify some parameters, such as power, prefix, suffix and delimiter.\n\n" +
-                "10. Connect / Disconnect button: Press the button to connect / disconnect the reader.";
+                "1.	For the first time launching the application, please grant device permission for location, connectivity and enabling <CSL Data Wedge>. \n\n" +
+                "2.	Readers will be discovered by the app and please check the box on the right hand side to select the reader to be connected. \n\n" +
+                "3.	Once connected, put the application in background.\n\n" +
+                "4.	Open the target application where you would like data to be printed.\n\n" +
+                "5.	On the target applicatoin , put the cursor to the text field where data will be printed.  Switch your keyboard to <CSL Data Wedge>.\n\n" +
+                "6.	Press and hold the trigger key of the reader to start reading tags. EPC values will be printed to the cursor on your target application.\n\n" +
+                "7.	Switch back to the CSL Data Wedge application.  Now you can press the \"Disconnect\" button to disconnect from the reader.\n\n" +
+                "8.	Configuration button: Press the button to modify parameters such as power, prefix, suffix and delimiter.\n\n";
                 MainActivity.csLibrary4A.appendToLog(stringInfo);
                 customPopupWindow.popupStart(stringInfo, false);
             }
@@ -294,7 +292,7 @@ public class DirectWedgeFragment extends CommonFragment {
                                 if (scanResultA.device.getBondState() == 12) {
                                     strInfo += "BOND_BONDED\n";
                                 }
-                                readerDevice.setDetails(strInfo + "scanRecord=" + mCsLibrary4A.byteArrayToString(scanResultA.scanRecord));
+                                //readerDevice.setDetails(strInfo + "scanRecord=" + mCsLibrary4A.byteArrayToString(scanResultA.scanRecord));
                                 readersList.add(readerDevice); listUpdated = true;
                             }
                         } else {
@@ -354,7 +352,7 @@ public class DirectWedgeFragment extends CommonFragment {
 
             MainActivity.csLibrary4A.appendToLog("FEATURE_INPUT_METHODS is " + getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_INPUT_METHODS));
             list = inputMethodManager.getEnabledInputMethodList(); bFound = false;
-            MainActivity.csLibrary4A.appendToLog("getCurrentInputMethodSubtype = " + inputMethodManager.getCurrentInputMethodSubtype().getLanguageTag());
+            //MainActivity.csLibrary4A.appendToLog("getCurrentInputMethodSubtype = " + inputMethodManager.getCurrentInputMethodSubtype().getLanguageTag());
             for (int i = 0; i < list.size(); i++) {
                 MainActivity.csLibrary4A.appendToLog("enabled " + i + ": " + list.get(i).getServiceName()
                         + ", " + list.get(i).getPackageName()
