@@ -7,7 +7,7 @@ android {
         minSdkVersion 21
         targetSdkVersion 33
         versionCode 5
-        versionName "5.9.13"
+        versionName "5.9.14"
     }
     namespace 'com.csl.cs710awedgeapp'
 }
