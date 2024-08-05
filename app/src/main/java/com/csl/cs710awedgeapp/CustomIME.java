@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.inputmethod.InputConnection;
 
 import com.csl.cs710library4a.CsLibrary4A;
+import com.csl.cslibrary4a.RfidReaderChipData;
 
 import java.util.ArrayList;
 
@@ -56,8 +57,9 @@ public class CustomIME extends InputMethodService { //implements KeyboardView.On
             if (strCurrentIME.contains(strCompare) == false) return;
 
             mHandler.postDelayed(serviceRunnable, 1000);
-            if (MainActivity.sharedObjects == null) return;
-            if (MainActivity.csLibrary4A == null) return;
+            if (MainActivity.sharedObjects == null || MainActivity.csLibrary4A == null) {
+                return;
+            }
 
             if (inventoring == false) { MainActivity.sharedObjects.serviceArrayList.clear(); epcArrayList.clear(); }
             if (MainActivity.mContext == null) return;
@@ -126,7 +128,7 @@ public class CustomIME extends InputMethodService { //implements KeyboardView.On
         if (started == false) {
             appendToLog("CustomIME Debug 11");
             MainActivity.csLibrary4A.setPowerLevel(MainActivity.wedgePower);
-            MainActivity.csLibrary4A.startOperation(CsLibrary4A.OperationTypes.TAG_INVENTORY);
+            MainActivity.csLibrary4A.startOperation(RfidReaderChipData.OperationTypes.TAG_INVENTORY);
             inventoryRfidTask = new InventoryRfidTask();
             inventoryRfidTask.execute();
         }

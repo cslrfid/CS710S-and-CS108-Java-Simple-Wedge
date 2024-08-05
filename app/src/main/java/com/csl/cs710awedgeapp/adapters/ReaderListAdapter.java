@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.csl.cs710awedgeapp.MainActivity;
 import com.csl.cs710awedgeapp.R;
-import com.csl.cs710library4a.ReaderDevice;
+import com.csl.cslibrary4a.ReaderDevice;
 
 import java.util.ArrayList;
 
@@ -65,6 +65,12 @@ public class ReaderListAdapter extends ArrayAdapter<ReaderDevice> {
             if (reader.getAddress().length() != 0) {
                 if (text1.length() != 0) text1 += "\n";
                 text1 += reader.getAddress();
+            }
+        }
+        if (reader.getUpcSerial() != null) {
+            if (reader.getUpcSerial().length() != 0)  {
+                if (text1.length() != 0) text1 += "\n";
+                text1 += reader.getUpcSerial();
             }
         }
         if (MainActivity.csLibrary4A.isBleScanning()) {
@@ -150,7 +156,7 @@ public class ReaderListAdapter extends ArrayAdapter<ReaderDevice> {
 
         TextView readerDetailA = (TextView) convertView.findViewById(R.id.reader_detailA);
         TextView readerDetailB = (TextView) convertView.findViewById(R.id.reader_detailB);
-        if (reader.isConnected() || checkedTextView.isChecked() || select4detail == false) {
+        if (true || reader.isConnected() || checkedTextView.isChecked() || select4detail == false) {
             readerDetailA.setText(reader.getDetails());
             readerDetailB.setText("");
             if (reader.isConnected()) {

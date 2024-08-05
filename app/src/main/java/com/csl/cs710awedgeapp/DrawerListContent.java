@@ -26,6 +26,7 @@ public class DrawerListContent {
         UCODE8, UCODEDNA,
         BAPCARD, COLDCHAIN, AURASENSE,
         KILOWAY,
+        LONGJING,
         AXZON, RFMICRON,
         FDMICRO,
         CTESIUS,
@@ -55,16 +56,17 @@ public class DrawerListContent {
                 case 15: return COLDCHAIN;
                 case 16: return AURASENSE;
                 case 17: return KILOWAY;
-                case 18: return AXZON;
-                //case 15: return RFMICRON;
-                case 19: return FDMICRO;
-                case 20: return CTESIUS;
-                case 21: return ASYGNTAG;
+                case 18: return LONGJING;
+                case 19: return AXZON;
+                //case 18: return RFMICRON;
+                case 20: return FDMICRO;
+                case 21: return CTESIUS;
+                case 22: return ASYGNTAG;
 
-                case 22: return REGISTER;
-                case 23: return READWRITEUSER;
-                case 24: return WEDGE;
-                case 25: return DIRECTWEDGE;
+                case 23: return REGISTER;
+                case 24: return READWRITEUSER;
+                case 25: return WEDGE;
+                case 26: return DIRECTWEDGE;
             }
             return null;
         }
@@ -84,8 +86,6 @@ public class DrawerListContent {
         addItem(new DrawerItem("9", "Security", R.drawable.dl_access));
 
         addItem(new DrawerItem("10", "Impinj Special Features", R.drawable.dl_loc));
-        //addItem(new DrawerItem("10", "Impinj M775", R.drawable.dl_loc));
-        //addItem(new DrawerItem("11", "Impinj Autotune", R.drawable.dl_loc));
         addItem(new DrawerItem("11", "Alien", R.drawable.dl_loc));
         addItem(new DrawerItem("12", "NXP UCODE 8", R.drawable.dl_loc));
         addItem(new DrawerItem("13", "NXP UCODE DNA", R.drawable.dl_loc));
@@ -93,16 +93,16 @@ public class DrawerListContent {
         addItem(new DrawerItem("15", "uEm Cold Chain CS8300", R.drawable.dl_loc));
         addItem(new DrawerItem("16", "uEm Aura-sense", R.drawable.dl_loc));
         addItem(new DrawerItem("17", "Kiloway KX2005X-BL", R.drawable.dl_rr));
-        addItem(new DrawerItem("18", "Axzon", R.drawable.dl_loc));
-        //addItem(new DrawerItem("18", "Axzon Magnus", R.drawable.dl_loc));
-        addItem(new DrawerItem("19", "FM13DT160", R.drawable.dl_loc));
-        addItem(new DrawerItem("20", "Landa CTESIUS", R.drawable.dl_loc));
-        addItem(new DrawerItem("21", "Asygn AS321x", R.drawable.dl_loc));
+        addItem(new DrawerItem("18", "EL-N2ESL CS6861", R.drawable.dl_rr));
+        addItem(new DrawerItem("19", "Axzon", R.drawable.dl_loc));
+        addItem(new DrawerItem("20", "FM13DT160", R.drawable.dl_loc));
+        addItem(new DrawerItem("21", "Landa CTESIUS", R.drawable.dl_loc));
+        addItem(new DrawerItem("22", "Asygn AS321x", R.drawable.dl_loc));
 
-        addItem(new DrawerItem("22", "Register Tag", R.drawable.dl_rr));
-        addItem(new DrawerItem("23", "Large sized memory read/write", R.drawable.dl_rr));
-        addItem(new DrawerItem("24", "Wedge", R.drawable.dl_rr));
-        addItem(new DrawerItem("25", "Direct Wedge", R.drawable.dl_rr));
+        addItem(new DrawerItem("23", "Register Tag", R.drawable.dl_rr));
+        addItem(new DrawerItem("24", "Large sized memory read/write", R.drawable.dl_rr));
+        addItem(new DrawerItem("25", "Wedge", R.drawable.dl_rr));
+        addItem(new DrawerItem("26", "Direct Wedge", R.drawable.dl_rr));
     }
 
     private static void addItem(DrawerItem item) {

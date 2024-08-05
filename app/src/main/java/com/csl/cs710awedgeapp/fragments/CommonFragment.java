@@ -5,11 +5,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
@@ -21,10 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+
+import com.csl.cs710awedgeapp.CustomAlertDialog;
 import com.csl.cs710awedgeapp.CustomPopupWindow;
 import com.csl.cs710awedgeapp.MainActivity;
 import com.csl.cs710awedgeapp.R;
-import com.csl.cs710library4a.CustomAlertDialog;
 
 public abstract class CommonFragment extends Fragment {
     final boolean DEBUG = false; final String TAG = "Hello";
@@ -130,23 +129,27 @@ public abstract class CommonFragment extends Fragment {
             if (MainActivity.csLibrary4A.isRfidFailure()) {
                 if (rfidFailure == false) {
                     rfidFailure = true;
-                    CustomAlertDialog appdialog = new CustomAlertDialog();
-                    appdialog.Confirm((Activity) MainActivity.mContext, "Rfid Transmission failure",
-                            "Do you want to disconnect the Bluetooth ?",
-                            "No thanks", "Disconnect",
-                            new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (DEBUG) MainActivity.csLibrary4A.appendToLog("Confirm is pressed");
-                                    MainActivity.csLibrary4A.forceBTdisconnect();
-                                }
-                            },
-                            new Runnable() {
-                                @Override
-                                public void run() {
-                                    if (DEBUG) MainActivity.csLibrary4A.appendToLog("Cancel is pressed.");
-                                }
-                            });
+                    if (false) {
+                        CustomAlertDialog appdialog = new CustomAlertDialog();
+                        appdialog.Confirm((Activity) MainActivity.mContext, "Rfid Transmission failure",
+                                "Do you want to disconnect the Bluetooth ?",
+                                "No thanks", "Disconnect",
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (DEBUG)
+                                            MainActivity.csLibrary4A.appendToLog("Confirm is pressed");
+                                        MainActivity.csLibrary4A.forceBTdisconnect();
+                                    }
+                                },
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (DEBUG)
+                                            MainActivity.csLibrary4A.appendToLog("Cancel is pressed.");
+                                    }
+                                });
+                    }
                 }
             } else rfidFailure = false;
 
