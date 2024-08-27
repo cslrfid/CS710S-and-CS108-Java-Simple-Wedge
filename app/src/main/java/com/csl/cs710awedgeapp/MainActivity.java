@@ -12,14 +12,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.csl.cs710awedgeapp.DrawerListContent.DrawerPositions;
 import com.csl.cs710awedgeapp.fragments.*;
-import com.csl.cs710library4a.CsLibrary4A;
+import com.csl.cslibrary4a.CsLibrary4A;
 import com.csl.cslibrary4a.ReaderDevice;
 
 import java.io.BufferedReader;
@@ -195,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static String fileName = "csReaderA_SimpleWedge";
     public static String wedgePrefix = null, wedgeSuffix = null;
-    public static int wedgeDelimiter = 0x0a, wedgePower = 300;
+    public static int wedgeOutput = 0, wedgeDelimiter = 0x0a, wedgePower = 300;
     void loadWedgeSettingFile() {
         File path = this.getFilesDir();
         File file = new File(path, fileName);
@@ -222,6 +220,9 @@ public class MainActivity extends AppCompatActivity {
                                 wedgeSuffix = dataArray[1];
                             } else if (dataArray[0].matches("wedgeDelimiter")) {
                                 wedgeDelimiter = Integer.valueOf(dataArray[1]);
+                                MainActivity.csLibrary4A.appendToLog("MainActivity, loadWedgeSettingFile: wedgeDelimiter = " + wedgeDelimiter);
+                            } else if (dataArray[0].matches("wedgeOutput")) {
+                                wedgeOutput = Integer.valueOf(dataArray[1]);
                             }
                         }
                     }

@@ -181,6 +181,7 @@ public class DirectWedgeFragment extends CommonFragment {
         });
 
         Button buttonStart = (Button) getActivity().findViewById(R.id.directWedgeButtonStart);
+        if (getActivity().getPackageName().matches("com.csl.cs710ademoapp")) buttonStart.setVisibility(View.VISIBLE);
         buttonStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -73,10 +73,20 @@ public abstract class CommonFragment extends Fragment {
         @Override
         public void run() {
             short reportCount = 5;
-            if (MainActivity.csLibrary4A.isBleConnected()) reportCount = MainActivity.csLibrary4A.getTriggerReportingCount();
+            if (MainActivity.csLibrary4A.isBleConnected()) {
+                byte[] notificationData = MainActivity.csLibrary4A.onNotificationEvent();
+                if (false && notificationData != null) {
+                    MainActivity.csLibrary4A.appendToLog("2 matched Error: " + MainActivity.csLibrary4A.byteArrayToString(notificationData));
+                    CustomPopupWindow customPopupWindow = new CustomPopupWindow(MainActivity.mContext);
+                    customPopupWindow.popupStart("Common Notification Error Code A101: " + MainActivity.csLibrary4A.byteArrayToString(notificationData), false);
+                }
+                reportCount = MainActivity.csLibrary4A.getTriggerReportingCount();
+            }
+
             mHandler.postDelayed(updateTriggerRunnable, reportCount * 1100);
             if (menuTriggerItem == null) return;
             if (MainActivity.csLibrary4A.isBleConnected() == false) { menuTriggerItem.setTitle("");  return; }
+
             int triggerCount = MainActivity.csLibrary4A.getTriggerCount();
             if (triggerCount != triggerCount_old) {
                 triggerCount_old = triggerCount;
@@ -296,7 +306,7 @@ public abstract class CommonFragment extends Fragment {
 
     @Override
     public void onDestroyView() {
-        if (DEBUG) MainActivity.csLibrary4A.appendToLog(fragmentName);
+        if (false) MainActivity.csLibrary4A.appendToLog(fragmentName);
         super.onDestroyView();
     }
 

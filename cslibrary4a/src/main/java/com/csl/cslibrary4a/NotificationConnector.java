@@ -41,17 +41,17 @@ public class NotificationConnector {
         }
     }
 
-        boolean mAutoRfidAbortStatus = true, mAutoRfidAbortStatusUpdate = false;
+        boolean autoRfidAbortStatus = true, autoRfidAbortStatusUpdate = false;
         boolean getAutoRfidAbortStatus() {
-            if (true || mAutoRfidAbortStatusUpdate == false) {
+            if (!autoRfidAbortStatusUpdate) {
                 CsReaderNotificationData csReaderNotificationData = new CsReaderNotificationData();
                 csReaderNotificationData.notificationPayloadEvent = NotificationPayloadEvents.NOTIFICATION_GET_AUTO_RFIDINV_ABORT;
                 notificationToWrite.add(csReaderNotificationData); appendToLog("notificationToWrite is added with length = " + notificationToWrite.size());
                 if (DEBUG_PKDATA) appendToLog("PkData: add NOTIFICATION_GET_AUTO_RFIDINV_ABORT to mNotificationToWrite with length = " + notificationToWrite.size());
             }
-            return mAutoRfidAbortStatus;
+            return autoRfidAbortStatus;
         }
-        void setAutoRfidAbortStatus(boolean mAutoRfidAbortStatus) { this.mAutoRfidAbortStatus = mAutoRfidAbortStatus; mAutoRfidAbortStatusUpdate = true; }
+        void setAutoRfidAbortStatus(boolean mAutoRfidAbortStatus) { this.autoRfidAbortStatus = mAutoRfidAbortStatus; autoRfidAbortStatusUpdate = true; }
 
         boolean mAutoBarStartStopStatus = false, mAutoBarStartStopStatusUpdated = false;
         public boolean getAutoBarStartStopStatus() {
@@ -343,6 +343,11 @@ public class NotificationConnector {
         return bValue;
     }
     public boolean setAutoRFIDAbort(boolean enable) {
+        if (false) appendToLog("BtDataOut: setAutoRFIDAbort with enable = " + enable + ", current autoRFIDAbort is " + autoRfidAbortStatus);
+        if (autoRfidAbortStatusUpdate) {
+            if ((enable && autoRfidAbortStatus) || (!enable && !autoRfidAbortStatus))
+                return true;
+        }
         CsReaderNotificationData csReaderNotificationData = new CsReaderNotificationData();
         csReaderNotificationData.notificationPayloadEvent = NotificationPayloadEvents.NOTIFICATION_AUTO_RFIDINV_ABORT;
         csReaderNotificationData.dataValues = new byte[1];

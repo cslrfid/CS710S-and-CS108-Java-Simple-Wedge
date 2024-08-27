@@ -335,6 +335,12 @@
         <item>None</item>
     </string-array>
 
+    <string-array name="wedgeOutput_options">
+        <item>RFID in EPC</item>
+        <item>RFID in Sgtin-96</item>
+        <item>Barcode</item>
+    </string-array>
+
     <string-array name="impinj_options">
         <item>M775</item>
         <item>M780/M781</item>

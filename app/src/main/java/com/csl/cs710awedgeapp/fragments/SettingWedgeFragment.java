@@ -19,7 +19,7 @@ import java.io.FileOutputStream;
 
 public class SettingWedgeFragment extends DialogFragment {
     EditText editTextPower, editTextPrefix, editTextSuffix;
-    Spinner spinnerDelimiter;
+    Spinner spinnerDelimiter, spinnerOutput;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -59,6 +59,8 @@ public class SettingWedgeFragment extends DialogFragment {
                         break;
                 }
                 MainActivity.wedgeDelimiter = wedgeDelimiter;
+                MainActivity.csLibrary4A.appendToLog("SettingWedgeFragment, onCreateDialog: wedgeDelimiter = " + MainActivity.wedgeOutput);
+                MainActivity.wedgeOutput = spinnerOutput.getSelectedItemPosition();
                 saveWedgeSetting2File();
                 getDialog().dismiss();
             }
@@ -87,6 +89,7 @@ public class SettingWedgeFragment extends DialogFragment {
         MainActivity.csLibrary4A.appendToLog("targetAdapter is " + (targetAdapter == null ? "null" : "valid"));
         targetAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         int position = 0;
+        MainActivity.csLibrary4A.appendToLog("SettingWedgeFragment, onCreatDialog: wedgeDelimiter = " + MainActivity.wedgeDelimiter);
         switch (MainActivity.wedgeDelimiter) {
             default:
                 position = 0;
@@ -107,6 +110,17 @@ public class SettingWedgeFragment extends DialogFragment {
         MainActivity.csLibrary4A.appendToLog("position is " + position);
         spinnerDelimiter.setAdapter(targetAdapter);
         spinnerDelimiter.setSelection(position);
+
+        spinnerOutput = (Spinner) view.findViewById(R.id.directWedgeSettingSpinnerOutput);
+        MainActivity.csLibrary4A.appendToLog("spinnerOutput is " + (spinnerOutput == null ? "null" : "valid"));
+        ArrayAdapter<CharSequence> targetAdapter1 = ArrayAdapter.createFromResource(getActivity(), R.array.wedgeOutput_options, R.layout.custom_spinner_layout);
+        MainActivity.csLibrary4A.appendToLog("targetAdapter1 is " + (targetAdapter1 == null ? "null" : "valid"));
+        targetAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        int position1 = MainActivity.wedgeOutput;
+        MainActivity.csLibrary4A.appendToLog("position1 is " + position1);
+        spinnerOutput.setAdapter(targetAdapter1);
+        spinnerOutput.setSelection(position1);
+
         return builder.create();
     }
 
@@ -120,7 +134,8 @@ public class SettingWedgeFragment extends DialogFragment {
             write2FileStream(stream, "wedgePower," + MainActivity.wedgePower + "\n");
             write2FileStream(stream, "wedgePrefix," + MainActivity.wedgePrefix + "\n");
             write2FileStream(stream, "wedgeSuffix," + MainActivity.wedgeSuffix + "\n");
-            write2FileStream(stream, "wedgeDelimiter," + String.valueOf(MainActivity.wedgeDelimiter) + "\n");
+            write2FileStream(stream, "wedgeDelimiter," + String.valueOf(MainActivity.wedgeDelimiter) + "\n"); MainActivity.csLibrary4A.appendToLog("SettingWedgeFragment, saveWedgeFragment: wedgeDelimiter = " + MainActivity.wedgeDelimiter);
+            write2FileStream(stream, "wedgeOutput," + String.valueOf(MainActivity.wedgeOutput) + "\n");
             write2FileStream(stream, "End of data\n");
             stream.close();
         } catch (Exception ex){
