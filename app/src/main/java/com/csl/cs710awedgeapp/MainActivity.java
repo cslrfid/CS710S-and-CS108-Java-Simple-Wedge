@@ -6,20 +6,19 @@ import android.content.Intent;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.csl.cs710awedgeapp.DrawerListContent.DrawerPositions;
 import com.csl.cs710awedgeapp.fragments.*;
-import com.csl.cs710library4a.CsLibrary4A;
-import com.csl.cs710library4a.ReaderDevice;
+import com.csl.cslibrary4a.CsLibrary4A;
+import com.csl.cslibrary4a.ReaderDevice;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -71,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         if (savedInstanceState == null) selectItem(drawerPositionsDefault);
-        if (DEBUG) Log.i(TAG, "MainActivity.onCreate.onCreate: END");
+        if (true) Log.i(TAG, "MainActivity.onCreate.onCreate: END");
         loadWedgeSettingFile();
     }
 
@@ -112,16 +111,21 @@ public class MainActivity extends AppCompatActivity {
     protected void onDestroy() {
         if (DEBUG) csLibrary4A.appendToLog("MainActivity.onDestroy()");
         if (true) { csLibrary4A.disconnect(true); }
+        //csLibrary4A = null;
         super.onDestroy();
     }
 
     private void selectItem(DrawerPositions position) {
         if (DEBUG) Log.i(TAG, "MainActivity.selectItem: position = " + position);
         switch (position) {
+            case ABOUT:
+                fragment = new AboutFragment();
+                break;
             case DIRECTWEDGE:
                 fragment = new DirectWedgeFragment();
                 break;
         }
+
         FragmentManager fragmentManager = getSupportFragmentManager();
 
         if (position == drawerPositionsDefault) {
@@ -165,16 +169,16 @@ public class MainActivity extends AppCompatActivity {
         permissionRequesting = false;
     }
 
-    public static boolean wedged = false;
-
-    // The click listener for ListView in the navigation drawer
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (DEBUG) Log.i(TAG, "MainActivity.onItemClick: position = " + position + ", id = " + id);
-            selectItem(DrawerListContent.DrawerPositions.toDrawerPosition(position));
-        }
+    public void privacyClicked(View view) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.addCategory(Intent.CATEGORY_BROWSABLE);
+        intent.setData(Uri.parse("https://www.convergence.com.hk/apps-privacy-policy"));
+        startActivity(intent);
     }
+
+    public void aboutClicked(View view) { selectItem(DrawerPositions.ABOUT); }
+    public static boolean wedged = false;
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -187,13 +191,14 @@ public class MainActivity extends AppCompatActivity {
         String action = intent.getAction();
     }
 
-    public static String fileName = "SimpleWedgeSettings";
+    public static String fileName = "csReaderA_SimpleWedge";
     public static String wedgePrefix = null, wedgeSuffix = null;
-    public static int wedgeDelimiter = 0x0a, wedgePower = 300;
+    public static int wedgeOutput = 0, wedgeDelimiter = 0x0a, wedgePower = 300;
     void loadWedgeSettingFile() {
         File path = this.getFilesDir();
         File file = new File(path, fileName);
         boolean bNeedDefault = true, DEBUG = false;
+        MainActivity.csLibrary4A.appendToLog(fileName + "file.exists = " + file.exists());
         if (file.exists()) {
             int length = (int) file.length();
             byte[] bytes = new byte[length];
@@ -215,6 +220,9 @@ public class MainActivity extends AppCompatActivity {
                                 wedgeSuffix = dataArray[1];
                             } else if (dataArray[0].matches("wedgeDelimiter")) {
                                 wedgeDelimiter = Integer.valueOf(dataArray[1]);
+                                MainActivity.csLibrary4A.appendToLog("MainActivity, loadWedgeSettingFile: wedgeDelimiter = " + wedgeDelimiter);
+                            } else if (dataArray[0].matches("wedgeOutput")) {
+                                wedgeOutput = Integer.valueOf(dataArray[1]);
                             }
                         }
                     }
